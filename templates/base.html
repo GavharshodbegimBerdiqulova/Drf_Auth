@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="uz">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>{% block title %}Mening blogim{% endblock %}</title>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@600&family=Nunito:wght@400;600&display=swap" rel="stylesheet">
+  <style>
+    :root { --pink:#e75480; --soft:#fff0f5; --lav:#e6d9f5; --text:#4a3b47; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family:'Nunito',sans-serif; color:var(--text);
+           background:linear-gradient(135deg,#fff0f5,#f3e8ff); min-height:100vh; }
+    h1,h2,.logo { font-family:'Playfair Display',serif; color:var(--pink); }
+    nav { background:#fff; padding:14px 24px; display:flex; justify-content:space-between;
+          align-items:center; box-shadow:0 2px 12px rgba(231,84,128,.15); flex-wrap:wrap; gap:8px; }
+    .logo { font-size:1.6rem; text-decoration:none; }
+    nav .links { display:flex; gap:14px; align-items:center; }
+    nav a { color:var(--text); text-decoration:none; font-weight:600; }
+    nav form { margin:0; display:inline; }
+    main { max-width:760px; margin:30px auto; padding:0 16px; }
+    .card { background:#fff; border-radius:20px; padding:22px; margin-bottom:20px;
+            box-shadow:0 6px 18px rgba(231,84,128,.12); }
+    .card h2 { margin-top:0; }
+    .meta { color:#a08a9b; font-size:.9rem; }
+    .btn { display:inline-block; background:var(--pink); color:#fff; border:none; padding:9px 20px;
+           border-radius:999px; cursor:pointer; font:inherit; font-weight:600; text-decoration:none; }
+    .btn:hover { opacity:.85; }
+    .btn.light { background:var(--lav); color:var(--text); }
+    .btn.danger { background:#b83b5e; }
+    input, textarea { width:100%; padding:10px 14px; border:2px solid var(--lav); border-radius:14px;
+                      font:inherit; margin:4px 0 12px; }
+    input:focus, textarea:focus { outline:none; border-color:var(--pink); }
+    .errorlist { color:#b83b5e; list-style:none; padding:0; margin:0; }
+    .helptext { font-size:.8rem; color:#a08a9b; }
+    .actions { display:flex; gap:10px; margin-top:14px; }
+  </style>
+</head>
+<body>
+  <nav>
+    <a class="logo" href="{% url 'post_list' %}">🌸 Mening blogim</a>
+    <div class="links">
+      {% if user.is_authenticated %}
+        <span class="meta">Salom, {{ user.username }}!</span>
+        <a href="{% url 'post_create' %}">✏️ Yangi post</a>
+        <form method="post" action="{% url 'logout' %}">{% csrf_token %}
+          <button class="btn light">Chiqish</button>
+        </form>
+      {% else %}
+        <a href="{% url 'login' %}">Kirish</a>
+        <a class="btn" href="{% url 'register' %}">Ro'yxatdan o'tish</a>
+      {% endif %}
+    </div>
+  </nav>
+  <main>{% block content %}{% endblock %}</main>
+</body>
+</html>

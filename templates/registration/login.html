@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <h1>Kirish 🌷</h1>
+  <form method="post">{% csrf_token %}
+    {{ form.as_p }}
+    <button class="btn">Kirish</button>
+  </form>
+  <p class="meta">Akkauntingiz yo'qmi? <a href="{% url 'register' %}">Ro'yxatdan o'ting</a></p>
+</div>
+{% endblock %}

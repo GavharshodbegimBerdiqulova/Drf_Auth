@@ -1,0 +1,11 @@
+{% extends 'base.html' %}
+{% block content %}
+<div class="card">
+  <h1>Postni o'chirasizmi?</h1>
+  <p>«{{ post.title }}» o'chirilsa, qayta tiklab bo'lmaydi.</p>
+  <form method="post">{% csrf_token %}
+    <button class="btn danger">Ha, o'chirish</button>
+    <a class="btn light" href="{{ post.get_absolute_url }}">Yo'q</a>
+  </form>
+</div>
+{% endblock %}
